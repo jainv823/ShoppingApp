@@ -1,12 +1,42 @@
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Pressable} from 'react-native';
 import React from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+import ProductItem from '../components/ProductItem';
+import Separator from '../components/Seprator';
+import {PRODUCTS_LIST} from '../data/constants';
 
-const HomeScreen = () => {
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+const HomeScreen = ({navigation}: HomeProps) => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={PRODUCTS_LIST}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          return (
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Details', {product: item});
+              }}>
+              <ProductItem product={item} />
+            </Pressable>
+          );
+        }}
+      />
     </View>
   );
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    backgroundColor: '#FFFFFF',
+  },
+});
