@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, FlatList, Pressable} from 'react-native';
+import {View, StyleSheet, FlatList, Pressable} from 'react-native';
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
@@ -14,6 +14,7 @@ const HomeScreen = ({navigation}: HomeProps) => {
       <FlatList
         data={PRODUCTS_LIST}
         keyExtractor={item => item.id}
+        ItemSeparatorComponent={Separator}
         renderItem={({item}) => {
           return (
             <Pressable
